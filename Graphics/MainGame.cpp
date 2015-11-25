@@ -1,4 +1,5 @@
 #include "MainGame.h"
+
 #include <iostream>
 
 MainGame::MainGame()
@@ -17,7 +18,7 @@ MainGame::~MainGame()
 
 void MainGame::run(){
 	initSystems();
-	_sprite.init(-1.0f, -1.0f, 1.0f, 1.0f);
+	_sprite.init(-1.0f, -1.0f, 2.0f, 2.0f);
 	gameLoop();
 }
 
@@ -39,6 +40,12 @@ void MainGame::initSystems(){
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+	initShaders();
+}
+void MainGame::initShaders(){
+	_shader.compileShaders("Shaders/VertexShader.vert", "Shaders/FragShader.frag");
+	_shader.addAttributes("vertexPosition");
+	_shader.linkShaders();
 
 }
 void MainGame::gameLoop(){
@@ -65,7 +72,8 @@ void MainGame::processInput(){
 void MainGame::drawGame(){
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	_shader.use();
 	_sprite.draw();
+	_shader.unUse();
 	SDL_GL_SwapWindow(_window);
 }

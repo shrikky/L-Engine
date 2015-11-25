@@ -83,6 +83,10 @@
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\FragShader.frag" />
+    <None Include="Shaders\VertexShader.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

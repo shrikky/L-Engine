@@ -9,8 +9,12 @@ public:
 
 	void compileShaders(const std::string& vertexshaderLoc, const std::string& fragmentshaderLoc);
 	void linkShaders();
+	void addAttributes(const std::string& attribName);
+	void use();
+	void unUse();
 
 private:
+	int _numOfAttrib;
 	void compileShader(const std::string & shaderPath, GLuint id);
 	GLuint _programID;
 	GLuint _vertexShaderID;

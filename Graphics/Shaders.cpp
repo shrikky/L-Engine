@@ -3,7 +3,7 @@
 #include <vector>
 #include<fstream>
 
-Shaders::Shaders() : _programID(0), _vertexShaderID(0), _fragShaderID(0)
+Shaders::Shaders() : _numOfAttrib(0), _programID(0), _vertexShaderID(0), _fragShaderID(0)
 {
 
 }
@@ -13,7 +13,6 @@ Shaders::~Shaders()
 {
 
 }
-
 void Shaders::compileShaders(const std::string & vertexShader, const std::string& fragmentShader)
 {
 
@@ -33,10 +32,11 @@ void Shaders::compileShaders(const std::string & vertexShader, const std::string
 
 void Shaders::compileShader(const std::string & shaderPath, GLuint shaderID){
 
+	_programID = glCreateProgram();
 	// Load Shaders
 	std::ifstream shaderFile(shaderPath);
 	if (shaderFile.fail()){
-		perror(shaderPath.c_str);
+		//perror(shaderPath.c_str);
 		fatalError("Failed to open" + shaderPath);
 	}
 	std::string fileContents;
@@ -74,7 +74,7 @@ void Shaders::compileShader(const std::string & shaderPath, GLuint shaderID){
 
 }
 void Shaders::linkShaders(){
-	_programID = glCreateProgram();
+
 
 	//Attach our shaders to our program
 	glAttachShader(_programID, _vertexShaderID);
@@ -110,4 +110,24 @@ void Shaders::linkShaders(){
 	//Always detach shaders after a successful link.
 	glDetachShader(_programID, _vertexShaderID);
 	glDetachShader(_programID, _fragShaderID);
+}
+
+void Shaders::addAttributes(const std::string& attribName){
+	glBindAttribLocation(_programID, _numOfAttrib++, attribName.c_str());
+
+
+}
+
+void Shaders::use(){
+	glUseProgram(_programID);
+	for (int i = 0; i < _numOfAttrib; i++){
+		glEnableVertexAttribArray(i);
+	}
+}
+void Shaders::unUse(){
+
+	glUseProgram(0);
+	for (int i = 0; i < _numOfAttrib; i++){
+		glDisableVertexAttribArray(i);
+	}
 }
