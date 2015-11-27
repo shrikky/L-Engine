@@ -5,6 +5,7 @@
 #include "Errors.h"
 #include "Sprite.h"
 #include "Shaders.h"
+#include "GLTexture.h"
 enum class GameState{PLAY, EXIT};
 class MainGame
 {
@@ -22,10 +23,12 @@ private:
 	void drawGame();
 
 	Shaders _shader;
-	int _screenWidth;
-	int _screenHeight;
 	SDL_Window* _window;
 	GameState _gameState;
 	Sprite _sprite;
+	GLTexture _playerTexture;
+	int _screenWidth;
+	int _screenHeight;
+	float _time;
 };
 

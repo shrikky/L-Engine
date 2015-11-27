@@ -36,7 +36,7 @@ void Shaders::compileShader(const std::string & shaderPath, GLuint shaderID){
 	// Load Shaders
 	std::ifstream shaderFile(shaderPath);
 	if (shaderFile.fail()){
-		//perror(shaderPath.c_str);
+		perror(shaderPath.c_str());
 		fatalError("Failed to open" + shaderPath);
 	}
 	std::string fileContents;
@@ -104,7 +104,7 @@ void Shaders::linkShaders(){
 		//Use the infoLog as you see fit.
 
 		std::printf("%s\n", &infoLog[0]);
-		fatalError("Shader failed to compile");
+		fatalError("Shader failed to Link");
 	}
 
 	//Always detach shaders after a successful link.
@@ -117,7 +117,16 @@ void Shaders::addAttributes(const std::string& attribName){
 
 
 }
+GLint Shaders:: getUniformVariable(const std::string& uniforformName) {
 
+	GLint loc = glGetUniformLocation(_programID, uniforformName.c_str());
+	if (loc == GL_INVALID_INDEX){
+		fatalError("Uniform: " + uniforformName + "variable does not exist");
+	}
+
+	return loc;
+}
+GLint getUniformLocation(const std::string& abc);
 void Shaders::use(){
 	glUseProgram(_programID);
 	for (int i = 0; i < _numOfAttrib; i++){

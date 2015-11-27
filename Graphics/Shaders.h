@@ -9,6 +9,7 @@ public:
 
 	void compileShaders(const std::string& vertexshaderLoc, const std::string& fragmentshaderLoc);
 	void linkShaders();
+	GLint getUniformVariable(const std::string& abc);
 	void addAttributes(const std::string& attribName);
 	void use();
 	void unUse();
