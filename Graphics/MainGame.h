@@ -2,10 +2,12 @@
 #include <SDL\SDL.h>
 #include <GL\glew.h>
 #include <string>
-#include "Errors.h"
-#include "Sprite.h"
-#include "Shaders.h"
-#include "GLTexture.h"
+#include <MasterEngine\Errors.h>
+#include <MasterEngine\Sprite.h>
+#include <MasterEngine\Shaders.h>
+#include <MasterEngine\GLTexture.h>
+#include <vector>
+#include <MasterEngine\Window.h>
 enum class GameState{PLAY, EXIT};
 class MainGame
 {
@@ -21,14 +23,17 @@ private:
 	void gameLoop();
 	void processInput();
 	void drawGame();
-
+	void calculateFPS();
 	Shaders _shader;
-	SDL_Window* _window;
+	Window _window;
 	GameState _gameState;
-	Sprite _sprite;
+	std::vector<Sprite*> _sprite;
 	GLTexture _playerTexture;
 	int _screenWidth;
 	int _screenHeight;
+	float _fps;		
+	float _frameTime;
 	float _time;
+	float _maxFPS;
 };
 
