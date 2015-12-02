@@ -18,10 +18,10 @@ MainGame::~MainGame()
 void MainGame::run(){
 	initSystems();
 
-	_sprite.push_back(new Sprite());
+	_sprite.push_back(new Engine::Sprite());
 	_sprite.back()->init(-1.0f, -1.0f, 1.0f, 1.0f, "Textures/PNG/CharacterRight_Standing.png");
 
-	_sprite.push_back(new Sprite());
+	_sprite.push_back(new Engine::Sprite());
 	_sprite.back()->init(0.0f, -1.0f, 1.0f, 1.0f, "Textures/PNG/CharacterRight_Standing.png");
 	
 
@@ -29,12 +29,9 @@ void MainGame::run(){
 }
 
 void MainGame::initSystems(){
-	// initialize SDL
-	SDL_Init(SDL_INIT_EVERYTHING);
 	
-	// Tell SDL that we want double buffering enabled
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	_window.create("Game Engine", _screenWidth, _screenHeight, FULLSCREEN);
+	Engine::init();
+	_window.create("Game Engine", _screenWidth, _screenHeight, Engine::FULLSCREEN);
 	initShaders();
 }
 void MainGame::initShaders(){

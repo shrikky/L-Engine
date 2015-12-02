@@ -8,6 +8,7 @@
 #include <MasterEngine\GLTexture.h>
 #include <vector>
 #include <MasterEngine\Window.h>
+#include <MasterEngine\Engine.h>
 enum class GameState{PLAY, EXIT};
 class MainGame
 {
@@ -24,11 +25,11 @@ private:
 	void processInput();
 	void drawGame();
 	void calculateFPS();
-	Shaders _shader;
-	Window _window;
+	Engine::Shaders _shader;
+	Engine::Window _window;
 	GameState _gameState;
-	std::vector<Sprite*> _sprite;
-	GLTexture _playerTexture;
+	std::vector<Engine::Sprite*> _sprite;
+	Engine::GLTexture _playerTexture;
 	int _screenWidth;
 	int _screenHeight;
 	float _fps;		
